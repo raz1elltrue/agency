@@ -1,8 +1,12 @@
 var express = require('express');
 var app = express();
 
+app.set ("view engine", "ejs");
+
+const data = 'hi';
+
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.render('index', {data: data});
 });
 
 app.listen(3000, function () {

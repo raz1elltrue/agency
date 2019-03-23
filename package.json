@@ -4,7 +4,7 @@
   "description": "web project for kpi 4 semestr",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raz1elltrue/agency.git"
+    "url": "git+https://github.com/raz1elltrue/agency.git"
   },
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,11 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/raz1elltrue/agency/issues"
+  },
+  "homepage": "https://github.com/raz1elltrue/agency#readme"
 }
