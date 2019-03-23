@@ -2,6 +2,10 @@
   "name": "agency",
   "version": "1.0.0",
   "description": "web project for kpi 4 semestr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raz1elltrue/agency.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +19,11 @@
   "devDependencies": {
     "eslint": "^5.15.3",
     "eslint-plugin-node": "^8.0.1"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
   }
 }
