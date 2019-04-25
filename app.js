@@ -1,34 +1,21 @@
 var express = require("express");
 const bodyParser = require("body-parser");
-
-const post = require("./models/post");
+const path = require("path");
+const staticAsset = require("static-asset");
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(staticAsset(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  "/javascripts",
+  express.static(path.join(__dirname, "node_modules", "jquery", "dist"))
+);
 
 app.get("/", function(req, res) {
-  post.find({}).then(posts => {
-    res.render("index", { posts: posts });
-  });
-});
-
-app.get("/create", function(req, res) {
-  res.render("create");
-});
-
-app.post("/create", function(req, res) {
-  const { title, body } = req.body;
-
-  post
-    .create({
-      title: title,
-      body: body
-    })
-    .then(post => console.log(post.id));
-
-  res.redirect("/");
+  res.render("index");
 });
 
 module.exports = app;
