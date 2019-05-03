@@ -30,7 +30,7 @@ gulp.task("scripts", () =>
     .pipe(gulp.dest("public/javascripts"))
 );
 
-gulp.task("default", gulp.series(["scss", "scripts"]), () => {
-  gulp.watch("dev/scss/**/*.scss", gulp.series("scss"));
-  gulp.watch("dev/js/**/*.js", gulp.series("scripts"));
+gulp.task("default", gulp.series("scss", "scripts"), function() {
+  gulp.watch("dev/scss/**/*.scss", ["scss"]);
+  gulp.watch("dev/js/**/*.js", ["scripts"]);
 });
