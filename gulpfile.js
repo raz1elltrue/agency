@@ -8,9 +8,9 @@ const concat = require("gulp-concat");
 const uglify = require("gulp-uglifyjs");
 /* eslint-enable node/no-unpublished-require */
 
-gulp.task("scss", () => {
+function css() {
   return gulp
-    .src("dev/scss/**/*.scss")
+    .src("./dev/scss/**/*.scss")
     .pipe(plumber())
     .pipe(sass())
     .pipe(
@@ -20,17 +20,23 @@ gulp.task("scss", () => {
     )
     .pipe(cssnano())
     .pipe(gulp.dest("public/stylesheets"));
-});
+}
 
-gulp.task("scripts", () =>
-  gulp
-    .src(["dev/js/auth.js"])
-    .pipe(concat("scripts.js"))
-    .pipe(uglify())
-    .pipe(gulp.dest("public/javascripts"))
-);
+function scripts() {
+  return (
+    gulp
+      .src([
+        "./dev/js/auth.js",
+        "./dev/js/post.js",
+        "node_modules/medium-editor/dist/js/medium-editor.min.js"
+      ])
+      .pipe(concat("scripts.js"))
+      //.pipe(uglify())
+      .pipe(gulp.dest("public/javascripts"))
+  );
+}
 
-gulp.task("default", gulp.series("scss", "scripts"), function() {
-  gulp.watch("dev/scss/**/*.scss", ["scss"]);
-  gulp.watch("dev/js/**/*.js", ["scripts"]);
-});
+gulp.watch("./dev/scss/**/*.scss", css);
+gulp.watch("./dev/js/**/*.js", scripts);
+
+exports.default = gulp.parallel(css, scripts);

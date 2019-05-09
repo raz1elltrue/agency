@@ -1,9 +1,12 @@
-var express = require("express");
+const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const staticAsset = require("static-asset");
 const mongoose = require("mongoose");
 const config = require("./config");
+const routes = require("./routes");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 // database
 mongoose.Promise = global.Promise;
@@ -18,13 +21,25 @@ mongoose.connection
   });
 
 mongoose.connect(config.MONGO_URL, { useNewUrlParser: true });
+mongoose.set("useCreateIndex", true);
 
 // express
 const app = express();
+app.use(
+  session({
+    secret: config.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  })
+);
 
 // sets and users
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(staticAsset(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
@@ -34,8 +49,18 @@ app.use(
 
 // routers
 app.get("/", function(req, res) {
-  res.render("index");
+  const id = req.session.userId;
+  const login = req.session.userLogin;
+
+  res.render("index", {
+    user: {
+      id,
+      login
+    }
+  });
 });
+app.use("/api/auth", routes.auth);
+app.use("/post", routes.post);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

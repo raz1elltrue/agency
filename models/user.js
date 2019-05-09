@@ -3,12 +3,14 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema(
   {
-    title: {
+    login: {
+      type: String,
+      require: true,
+      unique: true
+    },
+    password: {
       type: String,
       require: true
-    },
-    body: {
-      type: String
     }
   },
   {
@@ -20,4 +22,4 @@ schema.set("toJSON", {
   virtuals: true
 });
 
-module.exports = mongoose.model("Post", schema);
+module.exports = mongoose.model("User", schema);

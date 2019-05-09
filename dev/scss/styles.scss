@@ -7,11 +7,15 @@ $freeSpace: 15px;
 $headerHeight: 49px;
 $footerHeight: 49px;
 $borderRadius: 2px;
+$successColor: #87bf0a;
+$errorColor: #e82c0c;
 
 @import "reset";
 @import "grid";
 @import "typography";
 @import "forms";
+@import "../../node_modules/medium-editor/dist/css/medium-editor";
+@import "../../node_modules/medium-editor/dist/css/themes/default";
 
 html {
   display: flex;
