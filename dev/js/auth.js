@@ -20,7 +20,7 @@ $(function() {
   });
 
   // clear
-  $("input").on("focus", function() {
+  $("form.login input, form.register input").on("focus", function() {
     $("p.error").remove();
     $("input").removeClass("error");
   });
