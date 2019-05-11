@@ -3,47 +3,33 @@
 <div class="main">
   <div class="container">
     <div class="content">
+      <% for (var i = 0; i < posts.length; i++) { %>
       <div class="post">
         <div class="top">
-          <h2>Заголовок</h2>
+          <h2><%=posts[i].title %></h2>
         </div>
-        <div class="bod">
-          <p>
-            Цикл обработки событий — это механизм, который принимает
-            callback-функции и регистрирует их для выполнения в определённый
-            момент в будущем. Он работает в том же потоке, что и сам код
-            JavaScript. Когда операция блокирует поток, цикл событий также
-            блокируется. Пул воркеров — модель исполнения, вызывающая и
-            обрабатывающая отдельные потоки. Затем они синхронно выполняют
-            задачу и возвращают результат в цикл обработки событий. После цикл
-            вызывает callback-функцию с указанным результатом.
-          </p>
+        <div class="body">
+          <p><%=posts[i].body %></p>
         </div>
         <div class="bottom">
           <div class="author">Автор: <a href="/">HR manager</a></div>
           <a href="/">Комментарии</a>
         </div>
       </div>
-      <div class="post">
-        <div class="top">
-          <h2>Заголовок</h2>
-        </div>
-        <div class="bod">
-          <p>
-            Цикл обработки событий — это механизм, который принимает
-            callback-функции и регистрирует их для выполнения в определённый
-            момент в будущем. Он работает в том же потоке, что и сам код
-            JavaScript. Когда операция блокирует поток, цикл событий также
-            блокируется. Пул воркеров — модель исполнения, вызывающая и
-            обрабатывающая отдельные потоки. Затем они синхронно выполняют
-            задачу и возвращают результат в цикл обработки событий. После цикл
-            вызывает callback-функцию с указанным результатом.
-          </p>
-        </div>
-        <div class="bottom">
-          <div class="author">Автор: <a href="/">HR manager</a></div>
-          <a href="/">Комментарии</a>
-        </div>
+      <% } %>
+
+      <div class="pagination">
+        <% if (current > 2) { %>
+        <a class="new" href="/archive/<%= Number(current) - 1 %>">
+          ⇽ To newest job posts
+        </a>
+        <% } %> <% if (current == 2) { %>
+        <a class="new" href="/">⇽ To main</a>
+        <% } %> <% if (pages > 0 && current < pages) { %>
+        <a class="old" href="/archive/<%= Number(current) + 1 %>">
+          To previous job posts ⇾
+        </a>
+        <% } %>
       </div>
     </div>
 

@@ -9,15 +9,21 @@ $(function() {
     }
   });
 
+  // remove errors
+  function removeErrors() {
+    $(".post-form p.error").remove();
+    $(".post-form input, #post-body").removeClass("error");
+  }
+
   // clear
   $("post-form input, #post-body").on("focus", function() {
-    $("p.error").remove();
-    $("input, div").removeClass("error");
+    removeErrors();
   });
 
   // publish
   $(".publish-button").on("click", function(e) {
     e.preventDefault();
+    removeErrors();
 
     var data = {
       title: $("#post-title").val(),
