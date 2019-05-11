@@ -1,4 +1,4 @@
-<% include layout/header.ejs %>
+<% include ../layout/header.ejs %>
 
 <div class="main">
   <div class="container">
@@ -12,29 +12,37 @@
           <p><%=posts[i].body %></p>
         </div>
         <div class="bottom">
-          <div class="author">Автор: <a href="/">HR manager</a></div>
-          <a href="/">Комментарии</a>
+          <div class="author"></div>
+          <a href="/">Submit CV</a>
         </div>
       </div>
       <% } %>
 
       <div class="pagination">
         <% if (current > 2) { %>
-        <a class="new" href="/archive/<%= Number(current) - 1 %>">
+        <a
+          class="new"
+          href="/users/<%= _user.login %>/<%= Number(current) - 1 %>"
+        >
           ⇽ To newest job posts
         </a>
         <% } %> <% if (current == 2) { %>
-        <a class="new" href="/">⇽ To main</a>
+        <a class="new" href="/users/<%= _user.login %>"
+          >⇽ To the most recent posts</a
+        >
         <% } %> <% if (pages > 0 && current < pages) { %>
-        <a class="old" href="/archive/<%= Number(current) + 1 %>">
+        <a
+          class="old"
+          href="/users/<%= _user.login %>/<%= Number(current) + 1 %>"
+        >
           To previous job posts ⇾
         </a>
         <% } %>
       </div>
     </div>
 
-    <% include layout/sidebar.ejs %>
+    <% include ../layout/sidebar.ejs %>
   </div>
 </div>
 
-<% include layout/footer.ejs %>
+<% include ../layout/footer.ejs %>
