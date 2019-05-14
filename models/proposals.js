@@ -7,13 +7,31 @@ const schema = new Schema(
       type: String,
       require: true
     },
-    password: {
-      type: String,
-      require: true
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: "Post"
+    },
+    parent: {
+      type: Schema.Types.ObjectId,
+      ref: "Comment"
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
+    },
+    children: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+      }
+    ],
+    createdAt: {
+      type: Date,
+      default: Date.now
     }
   },
   {
-    timestamps: true
+    timestamps: false
   }
 );
 

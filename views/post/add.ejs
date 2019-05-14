@@ -18,6 +18,11 @@
           <button class="publish-button">Publish job</button>
         </div>
       </form>
+
+      <form method="POST" enctype="multipart/form-data" id="fileinfo">
+        <input type="file" name="file" id="file" required />
+        <button class="upload-button">Load CV in PDF</button>
+      </form>
     </div>
 
     <% include ../layout/sidebar.ejs %>
