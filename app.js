@@ -61,6 +61,8 @@ app.use((req, res, next) => {
   next(err);
 });
 
+//delete post
+
 //error handler
 //eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {

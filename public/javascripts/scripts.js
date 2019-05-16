@@ -118,14 +118,27 @@ $(function() {
     removeErrors();
   });
 
+  // delete
+  $(".delete-button").on("click", function(e) {
+    e.preventDefault();
+    removeErrors();
+  });
+
   // publish
-  $(".publish-button").on("click", function(e) {
+  $(".publish-button, .save-button").on("click", function(e) {
     e.preventDefault();
     removeErrors();
 
+    var isDraft =
+      $(this)
+        .attr("class")
+        .split(" ")[0] === "save-button";
+
     var data = {
       title: $("#post-title").val(),
-      body: $("#post-body").html()
+      body: $("#post-body").html(),
+      isDraft: isDraft,
+      postId: $("#post-id").val()
     };
 
     $.ajax({
@@ -147,7 +160,12 @@ $(function() {
         /*$(".register h2").after(
             '<p class="success"> Registration success!</p>'
           );*/
-        $(location).attr("href", "/");
+        // $(location).attr("href", "/");
+        if (isDraft) {
+          $(location).attr("href", "/post/edit/" + data.post.id);
+        } else {
+          $(location).attr("href", "/posts/" + data.post.url);
+        }
       }
     });
   });

@@ -4,18 +4,29 @@
   <div class="container">
     <div class="content add-post">
       <form method="post" class="post-form">
+        <% if (typeof post !== "undefined") { %>
+        <h2>Edit job post</h2>
+        <% } else { %>
         <h2>Add a new job post</h2>
+        <% } %>
+
         <div class="form-group">
           <label for="post-title">Title</label>
-          <input type="text" id="post-title" name="title" />
+          <input type="text" id="post-title" name="title" value="<%= typeof post
+          !== "undefined" ? post.title : '' %>"/>
         </div>
         <div class="form-group">
           <label for="post-body">Post</label>
-          <div id="post-body"></div>
+          <div id="post-body">
+            <%= typeof post !== "undefined" ? post.body : '' %>
+          </div>
+          <input type="hidden" id="post-id" name="postID" value="<%= typeof post
+          !== "undefined" ? post.id : '' %>">
         </div>
         <div class="buttons">
           <button class="save-button secondary-inverse">Save draft</button>
           <button class="publish-button">Publish job</button>
+          <div></div>
         </div>
       </form>
 

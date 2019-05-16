@@ -11,7 +11,9 @@ async function posts(req, res) {
   const page = req.params.page || 1;
 
   try {
-    const posts = await models.Post.find({})
+    const posts = await models.Post.find({
+      status: "published"
+    })
       .skip(perPage * page - perPage)
       .limit(perPage)
       .populate("owner")
@@ -74,7 +76,8 @@ router.get("/posts/:post", async (req, res, next) => {
   } else {
     try {
       const post = await models.Post.findOne({
-        url
+        url,
+        status: "published"
       });
       if (!post) {
         const err = new Error("Not found");

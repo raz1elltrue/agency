@@ -1,7 +1,7 @@
 const faker = require("faker");
 const models = require("./models");
 const TurndownService = require("turndown");
-const owner = "5cd6a22e1cda346644283a1b";
+const owner = "5cd6a1881cda346644283a19";
 
 module.exports = () => {
   models.Post.deleteMany()
