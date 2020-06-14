@@ -1,4 +1,5 @@
 const express = require("express");
+const i18n = require("i18n-express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const staticAsset = require("static-asset");
@@ -13,7 +14,7 @@ mongoose.Promise = global.Promise;
 mongoose.set("debug", config.IS_PRODUCTION);
 
 mongoose.connection
-  .on("error", error => console.log(error))
+  .on("error", (error) => console.log(error))
   .on("close", () => console.log("Database connection closed."))
   .once("open", () => {
     const info = mongoose.connections[0];
@@ -32,8 +33,8 @@ app.use(
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
-      mongooseConnection: mongoose.connection
-    })
+      mongooseConnection: mongoose.connection,
+    }),
   })
 );
 
@@ -46,6 +47,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(
   "/javascripts",
   express.static(path.join(__dirname, "node_modules", "jquery", "dist"))
+);
+
+app.use(
+  i18n({
+    translationsPath: path.join(__dirname, "i18n"), // <--- use here. Specify translations files path.
+    siteLangs: ["en", "ua"],
+    textsVarName: "translation",
+  })
 );
 
 // routes
@@ -69,10 +78,10 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.render("error", {
     message: error.message,
-    error: !config.IS_PRODUCTION ? error : {}
+    error: !config.IS_PRODUCTION ? error : {},
   });
 });
 
-app.listen(config.PORT, function() {
+app.listen(config.PORT, function () {
   console.log(`Example app listening on port ${config.PORT}!`);
 });
